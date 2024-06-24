@@ -49,7 +49,7 @@ const AboutSection = () => {
             </motion.h1>
             <div className="flex items-center w-full h-screen ">
                 <Card />
-                <Canvas flat linear camera={{ fov: 75, near: 0.5, far: 1000, position: [0, 0, 10] }} >
+                <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
                     <Model />
                 </Canvas>
             </div>

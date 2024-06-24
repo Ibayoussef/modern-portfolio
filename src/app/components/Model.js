@@ -5,7 +5,7 @@ import { OrbitControls, useGLTF } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
-function Model() {
+const Model = () => {
     const { scene, animations } = useGLTF('/scene.gltf');
     const mixerRef = useRef();
 
@@ -18,42 +18,39 @@ function Model() {
             mixerRef.current = mixer;
         }
 
-        // Change emission intensity
         scene.traverse((child) => {
-            if (child.isMesh && child.material) {
-                if (Array.isArray(child.material)) {
-                    child.material.forEach((material) => {
-                        if (material.emissive) {
-                            material.emissiveIntensity = 2; // Set the emissive intensity
-                        }
-                    });
-                } else {
-                    if (child.material.emissive) {
-                        child.material.emissiveIntensity = 2; // Set the emissive intensity
-                    }
+            if (child.isMesh) {
+                const material = child.material;
+                if (material) {
+                    material.emissiveIntensity = material.emissiveIntensity || 1;
+                    material.roughness = material.roughness !== undefined ? material.roughness : 0.2;
+                    material.metalness = material.metalness !== undefined ? material.metalness : 0.1;
+
+                    // Ensure textures are applied correctly
+                    material.needsUpdate = true;
                 }
             }
         });
 
-        // Rotate the model to look a bit to the left
-        scene.rotation.y = - Math.PI / 5;
     }, [animations, scene]);
 
     useFrame((state, delta) => {
         mixerRef.current?.update(delta);
+        scene.rotation.y += delta * 0.1; // Adjust rotation speed as needed
     });
 
     return (
         <>
-            <ambientLight intensity={3} />
-            <directionalLight position={[5, 5, 5]} intensity={1} />
-            <primitive object={scene} scale={3} />
+            <ambientLight intensity={20} />
+            <directionalLight position={[500, 0, 0]} intensity={500} />
+            <directionalLight position={[500, 3000, 0]} intensity={1000} />
+            <primitive object={scene} scale={0.5} />
 
             <EffectComposer>
-                <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} />
+                <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.2} height={200} />
             </EffectComposer>
         </>
     );
-}
+};
 
 export default Model;
