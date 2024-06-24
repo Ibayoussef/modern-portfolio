@@ -26,7 +26,7 @@ function Hero() {
                         transition={{ duration: 1.5, ease: 'easeInOut', delay: 0.5 }}
                         className="absolute inset-0 z-40 bg-[#A72582]"
                     />
-                    <h1 className="relative text-[3.75rem] leading-tight text-stroke uppercase">full stack developer</h1>
+                    <h1 className="relative text-[3.75rem] leading-tight  text-stroke uppercase">full stack developer</h1>
 
 
                 </div>
