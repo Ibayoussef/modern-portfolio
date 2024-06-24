@@ -2,10 +2,7 @@
 import React, { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import Card from './Card';
-import Model from './Model';
-import { Canvas } from '@react-three/fiber';
-
+import Image from 'next/image';
 const Work = () => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
@@ -29,10 +26,23 @@ const Work = () => {
         visible: { height: '0%', transition: { duration: 2, ease: 'easeOut' } },
     };
 
+    const cardVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    };
+
+    const cardData = [
+        { title: 'Project 1', description: 'This is a description of Project 1.' },
+        { title: 'Project 2', description: 'This is a description of Project 2.' },
+        { title: 'Project 3', description: 'This is a description of Project 3.' },
+        { title: 'Project 4', description: 'This is a description of Project 4.' },
+        { title: 'Project 5', description: 'This is a description of Project 5.' },
+        { title: 'Project 6', description: 'This is a description of Project 6.' },
+    ];
+
     return (
         <div ref={ref} className="relative p-8 overflow-hidden bg-black">
             <motion.div
-
                 initial="hidden"
                 animate={controls}
                 variants={overlayVariants}
@@ -47,11 +57,40 @@ const Work = () => {
             >
                 work_
             </motion.h1>
-            <div className="flex items-center w-full h-screen ">
+            <div className="flex items-center justify-center w-full h-screen">
+                <motion.div
+                    className="grid grid-cols-1 grid-rows-2 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+                    initial="hidden"
+                    animate={controls}
+                    variants={{
+                        hidden: { opacity: 0, y: 0 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 1, staggerChildren: 0.2 } },
+                    }}
+                >
+                    {cardData.map((project, index) => (
+                        <motion.div
+                            key={index}
+                            className={`relative p-4 overflow-hidden transition-transform transform border border-gray-200/20 rounded-lg shadow-lg bg-gradient-to-r from-purple-500/30 via-blue-500/30 to-purple-500/30 hover:shadow-2xl
+                            ${index % 3 === 0 ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'}`}
+                            variants={cardVariants}
+                            whileHover={{ scale: 1.05 }}
+                        >
 
+                            <div className="absolute inset-0 z-50 transition-opacity opacity-20 bg-gradient-to-r from-purple-500/50 to-blue-500/50 blur-md"></div>
+                            <Image src={'/placeholder.webp'} className='absolute inset-0 z-30 w-full h-full object-fit' alt='image' width={400} height={400} />
+
+                            <div className="relative z-50 w-full h-full p-4 text-white rounded-lg backdrop-filter backdrop-blur-sm bg-opacity-10">
+                                <h2 className="text-xl font-bold">{project.title}</h2>
+                                <p className="mt-2 text-sm">{project.description}</p>
+                                <button className="px-4 py-2 mt-4 text-sm font-semibold rounded-md bg-purple-700/50 hover:bg-purple-800/50">
+                                    Learn More
+                                </button>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
             </div>
-
-        </div >
+        </div>
     );
 };
 

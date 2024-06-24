@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
@@ -8,6 +8,7 @@ import * as THREE from 'three';
 const Model = () => {
     const { scene, animations } = useGLTF('/scene.gltf');
     const mixerRef = useRef();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (animations && animations.length) {
@@ -32,6 +33,7 @@ const Model = () => {
             }
         });
 
+        setLoading(false); // Set loading to false once the model is ready
     }, [animations, scene]);
 
     useFrame((state, delta) => {
@@ -41,11 +43,11 @@ const Model = () => {
 
     return (
         <>
+
             <ambientLight intensity={20} />
             <directionalLight position={[500, 0, 0]} intensity={500} />
             <directionalLight position={[500, 3000, 0]} intensity={1000} />
             <primitive object={scene} scale={0.5} />
-
             <EffectComposer>
                 <Bloom luminanceThreshold={0.1} luminanceSmoothing={0.2} height={200} />
             </EffectComposer>

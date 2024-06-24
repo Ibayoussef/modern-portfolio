@@ -48,11 +48,19 @@ const AboutSection = () => {
             >
                 about_
             </motion.h1>
-            <div className="flex items-center w-full h-screen ">
+            <div className="relative flex items-start w-full h-screen ">
+                <div className='absolute top-0 left-0 block w-full h-screen max-lg:block'>
+                    <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
+                        <Model />
+                    </Canvas>
+                </div>
                 <Card />
-                <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
-                    <Model />
-                </Canvas>
+                <div className='hidden w-full h-full lg:block'>
+                    <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
+                        <Model />
+                    </Canvas>
+                </div>
+
             </div>
 
         </div >
