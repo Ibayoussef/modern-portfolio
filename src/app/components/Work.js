@@ -6,7 +6,7 @@ import Card from './Card';
 import Model from './Model';
 import { Canvas } from '@react-three/fiber';
 
-const AboutSection = () => {
+const Work = () => {
     const controls = useAnimation();
     const [ref, inView] = useInView({
         triggerOnce: true,
@@ -14,7 +14,6 @@ const AboutSection = () => {
     });
 
     useEffect(() => {
-        console.log('inView:', inView);
         if (inView) {
             controls.start('visible');
         }
@@ -40,23 +39,20 @@ const AboutSection = () => {
                 className="absolute inset-0 z-20 bg-black"
             />
             <motion.h1
-                id='about'
+                id='work'
                 initial="hidden"
                 animate={controls}
                 variants={headingVariants}
                 className="relative z-10 text-[7rem] leading-tight text-stroke uppercase"
             >
-                about_
+                work_
             </motion.h1>
             <div className="flex items-center w-full h-screen ">
-                <Card />
-                <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
-                    <Model />
-                </Canvas>
+
             </div>
 
         </div >
     );
 };
 
-export default AboutSection;
+export default Work;

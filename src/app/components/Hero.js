@@ -9,8 +9,14 @@ function Hero() {
         initial: { x: 0 },
         animate: { x: '-100%' }
     };
+    const scrollToAbout = () => {
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+            aboutSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
     return (
-        <div className="relative w-full min-h-screen">
+        <div id='home' className="relative w-full min-h-screen">
             <div className='absolute top-0 left-0 z-40 w-full h-full bg-black opacity-60'></div>
             <video className="absolute top-0 left-0 z-30 object-cover w-full h-full" autoPlay loop muted>
                 <source src="/video.mp4" type="video/mp4" />
@@ -55,7 +61,7 @@ function Hero() {
 
             </div>
             <div className='absolute flex justify-center w-full bottom-8'>
-                <Button > <div className='flex flex-row items-center gap-2'><p>Scroll Down</p><ChevronDownIcon className='w-5 h-5' /></div> </Button>
+                <Button onClick={scrollToAbout} > <div className='flex flex-row items-center gap-2'><p>Scroll Down</p><ChevronDownIcon className='w-5 h-5' /></div> </Button>
             </div>
         </div>
     );
