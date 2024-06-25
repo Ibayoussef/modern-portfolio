@@ -1,14 +1,15 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { useContext, useEffect, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { useAnimations, useGLTF } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import * as THREE from 'three';
+import { LoadingContext } from '../utils/LoadingContext';
 
 const Model = () => {
+    const { setLoading } = useContext(LoadingContext);
     const { scene, animations } = useGLTF('/scene.gltf');
     const mixerRef = useRef();
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (animations && animations.length) {
@@ -32,8 +33,7 @@ const Model = () => {
                 }
             }
         });
-
-        setLoading(false); // Set loading to false once the model is ready
+        setLoading(false)
     }, [animations, scene]);
 
     useFrame((state, delta) => {

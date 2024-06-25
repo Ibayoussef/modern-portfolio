@@ -14,7 +14,6 @@ const AboutSection = () => {
     });
 
     useEffect(() => {
-        console.log('inView:', inView);
         if (inView) {
             controls.start('visible');
         }
@@ -55,7 +54,7 @@ const AboutSection = () => {
                     </Canvas>
                 </div>
                 <Card />
-                <div className='hidden w-full h-full lg:block'>
+                <div className='hidden w-1/2 h-full lg:block'>
                     <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
                         <Model />
                     </Canvas>
