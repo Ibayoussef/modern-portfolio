@@ -43,12 +43,12 @@ const AboutSection = () => {
                 initial="hidden"
                 animate={controls}
                 variants={headingVariants}
-                className="relative z-10 text-[7rem] leading-tight text-stroke uppercase"
+                className="relative z-10 text-[10rem] leading-tight text-stroke uppercase"
             >
                 about_
             </motion.h1>
-            <div className="relative flex items-start w-full h-screen ">
-                <div className='absolute top-0 left-0 block w-full h-screen max-lg:block'>
+            <div className="relative flex items-start w-full h-screen max-lg:h-full ">
+                <div className='absolute right-[200px] block w-fit h-screen -top-[200px] max-lg:block'>
                     <Canvas flat linear camera={{ position: [0, 0, 5], fov: 50 }} >
                         <Model />
                     </Canvas>

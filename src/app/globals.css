@@ -19,6 +19,9 @@
 html {
   font-size: clamp(0.5rem, 1vw + 0.2rem, 1rem);
 }
+main {
+  overflow: hidden;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
